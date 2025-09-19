@@ -46,7 +46,14 @@ const API = process.env.REACT_APP_API_URL || "https://buylit-backend.onrender.co
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch(loginRequest());
-    const { data } = await axios.post(`${API}/login`, { email, password });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true, // ✅ important for sending/receiving cookies
+    };
+
+    const { data } = await axios.post(`${API}/login`, { email, password }, config);
+
     dispatch(loginSuccess(data.user));
   } catch (err) {
     dispatch(loginFail(err.response?.data?.message || err.message));
