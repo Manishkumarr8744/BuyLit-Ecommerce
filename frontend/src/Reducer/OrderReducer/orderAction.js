@@ -30,7 +30,7 @@ import {
 } from "./orderDetail";
 
 // ✅ Base API URL (env variable for Render, fallback to localhost)
-const API = process.env.REACT_APP_API_URL || "http://localhost:4000";
+const API = process.env.REACT_APP_API_URL;
 
 // ------------------- CREATE ORDER -------------------
 export const createOrder = (order) => async (dispatch) => {
@@ -41,7 +41,7 @@ export const createOrder = (order) => async (dispatch) => {
       headers: { "Content-Type": "application/json" },
     };
 
-    const { data } = await axios.post(`${API}/api/v1/order/new`, order, config);
+    const { data } = await axios.post(`${API}/order/new`, order, config);
 
     dispatch(createOrderSuccess(data.success));
   } catch (error) {
@@ -55,7 +55,7 @@ export const getuserOrder = () => async (dispatch) => {
   try {
     dispatch(myorderRequest());
 
-    const { data } = await axios.get(`${API}/api/v1/orders/me`);
+    const { data } = await axios.get(`${API}/orders/me`);
 
     dispatch(myorderSuccess(data.order));
   } catch (err) {
@@ -71,7 +71,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
   try {
     dispatch(orderDetailsRequest());
 
-    const { data } = await axios.get(`${API}/api/v1/order/${id}`);
+    const { data } = await axios.get(`${API}/order/${id}`);
 
     console.log(data);
 
@@ -86,7 +86,7 @@ export const getAllOrders = () => async (dispatch) => {
   try {
     dispatch(allOrdersRequest());
 
-    const { data } = await axios.get(`${API}/api/v1/admin/orders`);
+    const { data } = await axios.get(`${API}/admin/orders`);
 
     dispatch(allOrdersSuccess(data.orders));
   } catch (error) {
@@ -99,7 +99,7 @@ export const deleteOrder = (id) => async (dispatch) => {
   try {
     dispatch(deleteOrderRequest());
 
-    const { data } = await axios.delete(`${API}/api/v1/admin/order/${id}`);
+    const { data } = await axios.delete(`${API}/admin/order/${id}`);
 
     dispatch(deleteOrderSuccess(data.success));
   } catch (err) {
@@ -117,7 +117,7 @@ export const updateOrder = (id, status) => async (dispatch) => {
     const config = { headers: { "Content-Type": "application/json" } };
 
     const { data } = await axios.put(
-      `${API}/api/v1/admin/order/${id}`,
+      `${API}/admin/order/${id}`,
       { status },
       config
     );
