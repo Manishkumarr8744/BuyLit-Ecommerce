@@ -86,7 +86,7 @@ export const getAllOrders = () => async (dispatch) => {
   try {
     dispatch(allOrdersRequest());
 
-    const { data } = await axios.get(`${API}/admin/orders`);
+    const { data } = await axios.get(`${API}/admin/orders`,{withCredentials: true});
 
     dispatch(allOrdersSuccess(data.orders));
   } catch (error) {
