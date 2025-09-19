@@ -28,7 +28,7 @@ export const newReview = (reviewData) => async (dispatch) => {
 
     const config = { headers: { "Content-Type": "application/json" } };
 
-    const { data } = await axios.put(`${API}/api/v1/review`, reviewData, config);
+    const { data } = await axios.put(`${API}/review`, reviewData, config);
 
     dispatch(newReviewSuccess(data.success));
   } catch (err) {
@@ -45,7 +45,7 @@ export const deleteReviews = (id, productId) => async (dispatch) => {
     dispatch(deleteReviewRequest());
 
     const { data } = await axios.delete(
-      `${API}/api/v1/reviews?id=${id}&productId=${productId}`
+      `${API}/reviews?id=${id}&productId=${productId}`
     );
 
     console.log(data);
@@ -62,7 +62,7 @@ export const getAllReviews = (id) => async (dispatch) => {
   try {
     dispatch(allReviewRequest());
 
-    const { data } = await axios.get(`${API}/api/v1/reviews?id=${id}`);
+    const { data } = await axios.get(`${API}/reviews?id=${id}`);
 
     dispatch(allReviewSuccess(data.reviews));
   } catch (err) {
