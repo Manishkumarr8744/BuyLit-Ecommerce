@@ -39,7 +39,7 @@ import OrderDetails from './Components/Order/OrderDetails';
 
 const App = () => {
   const dispatch = useDispatch();
-  const API = process.env.REACT_APP_API_URL || "http://localhost:4000";
+  const API = process.env.REACT_APP_API_URL;
 
   const [stripeApiKey, setStripeApiKey] = useState("");
 
