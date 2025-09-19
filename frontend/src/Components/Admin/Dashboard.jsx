@@ -57,7 +57,7 @@ const Dashboard = () => {
     },
     {
       title: "Total Products",
-      value: products?.length || 0,
+      value: products?.length ,
       icon: Package,
       color: "bg-blue-500",
       lightColor: "bg-blue-50",
@@ -66,7 +66,7 @@ const Dashboard = () => {
     },
     {
       title: "Total Orders",
-      value: orders?.length || 0,
+      value: orders?.length,
       icon: ShoppingCart,
       color: "bg-purple-500",
       lightColor: "bg-purple-50",
@@ -75,7 +75,7 @@ const Dashboard = () => {
     },
     {
       title: "Total Users",
-      value: users?.length || 0,
+      value: users?.length,
       icon: Users,
       color: "bg-orange-500",
       lightColor: "bg-orange-50",
