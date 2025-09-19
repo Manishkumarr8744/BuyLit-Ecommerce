@@ -79,17 +79,21 @@ const App = () => {
         <Route path='/orders' element={<MyOrders />} />
         <Route path='/order/:id' element={<OrderDetails />} />
 
-        {/* Stripe Payment Route */}
-        {stripePromise && (
-          <Route
-            path='/process/payment'
-            element={
+        {/* Stripe Payment Route - Always render the route */}
+        <Route
+          path='/process/payment'
+          element={
+            stripePromise ? (
               <Elements stripe={stripePromise}>
                 <Payment />
               </Elements>
-            }
-          />
-        )}
+            ) : (
+              <div className="flex items-center justify-center min-h-screen">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+              </div>
+            )
+          }
+        />
 
         {/* Admin Routes */}
         <Route path='/admin/dashboard' element={<Dashboard />} />
@@ -102,11 +106,7 @@ const App = () => {
         <Route path='/admin/user/:id' element={<UpdateUser />} />
         <Route path='/admin/order/:id' element={<ProcessOrder />} />
 
-
-
         <Route path='*' element={<NotFound />} />
-
-
 
       </Routes>
       <Footer />
