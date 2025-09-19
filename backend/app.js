@@ -18,7 +18,6 @@ app.use(cookieParser());
 
 app.use(cors({
   origin: [
-    "http://localhost:5173",                  // local Vite
     "https://buylit-ecommerce.onrender.com"   // deployed frontend
   ],
   credentials: true,
