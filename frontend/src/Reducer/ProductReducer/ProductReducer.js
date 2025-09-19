@@ -19,11 +19,11 @@ const ProductReducer = createSlice({
     },
     adminProductRequest(state) {
       state.loading = true;
-      state.products = [];
+      
     },
     allProductSuccess(state, action) {
       state.loading = false;
-      state.products = action.payload.products;
+      state.products = action.payload;
       state.productsCount = action.payload.productsCount;
       state.resultPerPage = action.payload.resultPerPage;
       state.filteredProductsCount = action.payload.filteredProductsCount;
