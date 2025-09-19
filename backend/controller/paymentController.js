@@ -23,6 +23,7 @@ exports.processPayment=catchAsyncError(async(req,res,next)=>{
 
 exports.sendStripeAPIkey=catchAsyncError(async(req,res,next)=>{
     res.status(200).json({
+        success:true,
         stripeApiKey:process.env.STRIPE_API_KEY
     })
 })
