@@ -10,7 +10,7 @@ import ProductDetails from './Components/Product/ProductDetails';
 import Login from './Components/User/Login';
 import Signup from './Components/User/SignUp';
 import Cart from './Components/Cart/cart';
-import Product from './Components/Product/Products';
+import Products from './Components/Product/Products';
 import Shipping from './Components/Cart/Shipping';
 import About from './Components/Layouts/About/About';
 import Search from './Components/Product/Search';
@@ -68,7 +68,7 @@ const App = () => {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/cart' element={<Cart />} />
-        <Route path='/products' element={<Product />} />
+        <Route path='/products' element={<Products />} />
         <Route path='/shipping' element={<Shipping />} />
         <Route path='/about' element={<About />} />
         <Route path='/search' element={<Search />} />
