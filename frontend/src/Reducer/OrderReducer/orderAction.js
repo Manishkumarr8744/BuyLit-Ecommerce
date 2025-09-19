@@ -30,7 +30,7 @@ import {
 } from "./orderDetail";
 
 // ✅ Base API URL (env variable for Render, fallback to localhost)
-const API = process.env.REACT_APP_API_URL;
+const API = process.env.REACT_APP_API_URL || "https://buylit-backend.onrender.com/api/v1";
 
 // ------------------- CREATE ORDER -------------------
 export const createOrder = (order) => async (dispatch) => {
