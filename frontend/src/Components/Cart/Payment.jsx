@@ -58,7 +58,7 @@ const Payment = () => {
     paybtn.current.disabled = true;
 
     try {
-      const config = { headers: { "Content-Type": "application/json" } };
+      const config = { headers: { "Content-Type": "application/json" }, withCredentials: true };
       const { data } = await axios.post(
         "/api/v1/payment/process",
         paymentData,
