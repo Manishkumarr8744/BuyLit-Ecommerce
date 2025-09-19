@@ -34,7 +34,7 @@ import {
 import axios from "axios";
 
 // ✅ Use env var if available, otherwise localhost
-const API = process.env.REACT_APP_API_URL || "http://localhost:4000";
+const API = process.env.REACT_APP_API_URL;
 
 // ------------------- GET ALL PRODUCTS -------------------
 export const getProduct =
@@ -43,7 +43,7 @@ export const getProduct =
     try {
       dispatch(allProductRequest());
 
-      let link = `${API}/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+      let link = `${API}/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
 
       if (category) {
         link += `&category=${category}`;
@@ -62,7 +62,7 @@ export const getProductDetails = (id) => async (dispatch) => {
   try {
     dispatch(productDetailsRequest());
 
-    const { data } = await axios.get(`${API}/api/v1/products/${id}`);
+    const { data } = await axios.get(`${API}/products/${id}`);
 
     dispatch(productDetailsSuccess(data.product));
   } catch (err) {
@@ -95,7 +95,7 @@ export const getAdminProduct = () => async (dispatch) => {
   try {
     dispatch(adminProductRequest());
 
-    const { data } = await axios.get(`${API}/api/v1/admin/products`);
+    const { data } = await axios.get(`${API}/admin/products`);
 
     dispatch(adminProductSuccess(data.products));
   } catch (err) {
@@ -108,7 +108,7 @@ export const deleteProduct = (id) => async (dispatch) => {
   try {
     dispatch(deleteProductRequest());
 
-    const { data } = await axios.delete(`${API}/api/v1/admin/products/${id}`);
+    const { data } = await axios.delete(`${API}/admin/products/${id}`);
 
     dispatch(deleteProductSuccess(data.success));
   } catch (err) {
@@ -124,7 +124,7 @@ export const createProduct = (productData) => async (dispatch) => {
     const config = { headers: { "Content-Type": "application/json" } };
 
     const { data } = await axios.post(
-      `${API}/api/v1/admin/products/new`,
+      `${API}/admin/products/new`,
       productData,
       config
     );
