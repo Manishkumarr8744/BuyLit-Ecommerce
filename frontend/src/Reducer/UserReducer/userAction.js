@@ -40,7 +40,7 @@ import {
 import axios from "axios";
 
 // ✅ Use environment variable or fallback to localhost
-const API = process.env.REACT_APP_API_URL || "http://localhost:4000";
+const API = process.env.REACT_APP_API_URL;
 
 // ------------------- LOGIN USER -------------------
 export const login = (email, password) => async (dispatch) => {
