@@ -3,60 +3,74 @@ import {
   newReviewRequest,
   newReviewSuccess,
   newReviewFail,
-  newReviewReset,
   clearErrors,
-} from "./reviewReducer"
-import { deleteReviewRequest,
+} from "./reviewReducer";
+
+import {
+  deleteReviewRequest,
   deleteReviewSuccess,
-  deleteReviewFail,} from "./reviewReducerD"
-import { allReviewFail, allReviewRequest, allReviewSuccess } from "./allReviewReducer";
+  deleteReviewFail,
+} from "./reviewReducerD";
 
+import {
+  allReviewFail,
+  allReviewRequest,
+  allReviewSuccess,
+} from "./allReviewReducer";
 
-//create new review
-export const newReview=(reviewData)=>async(dispatch)=>{
-    try{
-        dispatch(newReviewRequest());
-        const config = {headers: { "Content-Type": "application/json" },};
-        const {data}=await axios.put(`/api/v1/review`,reviewData,config)
-        dispatch(newReviewSuccess(data.success))
+// ✅ Base API URL (Render backend in .env, fallback to localhost)
+const API = process.env.REACT_APP_API_URL || "http://localhost:4000";
 
-    }catch(err){
-        console.log("error in new review action",err);
-        dispatch(newReviewFail(err.response.data.message))
-    }
-}
+// ------------------- CREATE NEW REVIEW -------------------
+export const newReview = (reviewData) => async (dispatch) => {
+  try {
+    dispatch(newReviewRequest());
 
-//delete Review -Admin
-export const deleteReviews=(id,productId)=>async(dispatch)=>{
-  console.log("here ",id, productId);
-  
-  try{
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.put(`${API}/api/v1/review`, reviewData, config);
+
+    dispatch(newReviewSuccess(data.success));
+  } catch (err) {
+    console.log("error in new review action", err);
+    dispatch(newReviewFail(err.response?.data?.message || err.message));
+  }
+};
+
+// ------------------- DELETE REVIEW (ADMIN) -------------------
+export const deleteReviews = (id, productId) => async (dispatch) => {
+  console.log("Deleting review:", id, "for product:", productId);
+
+  try {
     dispatch(deleteReviewRequest());
-    const { data } = await axios.delete(`/api/v1/reviews?id=${id}&productId=${productId}` );
+
+    const { data } = await axios.delete(
+      `${API}/api/v1/reviews?id=${id}&productId=${productId}`
+    );
+
     console.log(data);
-    
-    dispatch(deleteReviewSuccess(data.success))
 
-  }catch(err){
+    dispatch(deleteReviewSuccess(data.success));
+  } catch (err) {
     console.log(err);
-    
-    dispatch(deleteReviewFail(err.response.data.message))
+    dispatch(deleteReviewFail(err.response?.data?.message || err.message));
   }
-}
+};
 
-//get all reviews
-export const getAllReviews=(id)=>async(dispatch)=>{
-  try{
+// ------------------- GET ALL REVIEWS -------------------
+export const getAllReviews = (id) => async (dispatch) => {
+  try {
     dispatch(allReviewRequest());
-     const { data } = await axios.get(`/api/v1/reviews?id=${id}`);
-    dispatch(allReviewSuccess(data.reviews))
-  }catch(err){
-    dispatch(allReviewFail(err.response.data.message))
-  }
-}
 
-//clear Error
+    const { data } = await axios.get(`${API}/api/v1/reviews?id=${id}`);
+
+    dispatch(allReviewSuccess(data.reviews));
+  } catch (err) {
+    dispatch(allReviewFail(err.response?.data?.message || err.message));
+  }
+};
+
+// ------------------- CLEAR ERRORS -------------------
 export const clearError = () => async (dispatch) => {
   dispatch(clearErrors());
 };
-
