@@ -17,14 +17,12 @@ import {
   updateUserFail,
   updateUserRequest,
   updateUserSuccess,
-  updateUserReset,
   updatePasswordRequest,
   updatePasswordSuccess,
   updatePasswordFail,
   deleteUserRequest,
   deleteUserSuccess,
   deleteUserFail,
-  deleteUserReset,
 } from "./userProfleReducer";
 
 import {
@@ -41,130 +39,121 @@ import {
 
 import axios from "axios";
 
-// ✅ Define your backend base URL
-const API = axios.create({
-  baseURL: "https://buylit-backend.onrender.com/api/v1",
-  withCredentials: true, // if backend uses cookies/session
-});
+// ✅ Use environment variable or fallback to localhost
+const API = process.env.REACT_APP_API_URL || "http://localhost:4000";
 
-// get user
+// ------------------- LOGIN USER -------------------
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch(loginRequest());
-    const { data } = await API.post(`/login`, { email, password });
+    const { data } = await axios.post(`${API}/login`, { email, password });
     dispatch(loginSuccess(data.user));
   } catch (err) {
-    console.log("error in login action", err);
     dispatch(loginFail(err.response?.data?.message || err.message));
   }
 };
 
-// logout user
+// ------------------- LOGOUT USER -------------------
 export const logout = () => async (dispatch) => {
   try {
-    await API.get(`/logout`);
+    await axios.get(`${API}/logout`);
     dispatch(logoutSuccess());
   } catch (err) {
-    console.log("error in logout", err);
     dispatch(logoutFail(err.response?.data?.message || err.message));
   }
 };
 
-// load user
+// ------------------- LOAD USER -------------------
 export const loadUser = () => async (dispatch) => {
   try {
     dispatch(loadUserRequest());
-    const { data } = await API.get(`/me`);
+    const { data } = await axios.get(`${API}/me`);
     dispatch(loadUserSuccess(data.user));
   } catch (err) {
-    console.log("error in load user action", err);
     dispatch(loadUserFail(err.response?.data?.message || err.message));
   }
 };
 
-// register user
+// ------------------- REGISTER USER -------------------
 export const registerUser = (userData) => async (dispatch) => {
   try {
     dispatch(registerUserRequest());
     const config = { headers: { "Content-Type": "application/json" } };
-    const { data } = await API.post(`/register`, userData, config);
+    const { data } = await axios.post(`${API}/register`, userData, config);
     dispatch(registerUserSuccess(data.user));
   } catch (err) {
-    console.log("error in register user", err);
     dispatch(registerUserFail(err.response?.data?.message || err.message));
   }
 };
 
-// update user name and email
+// ------------------- UPDATE USER -------------------
 export const updateUser = (updatedData) => async (dispatch) => {
   try {
     dispatch(updateUserRequest());
-    const { data } = await API.put(`/me/update`, updatedData);
+    const { data } = await axios.put(`${API}/me/update`, updatedData);
     dispatch(updateUserSuccess(data.success));
   } catch (err) {
-    console.log("error in updateUser action");
     dispatch(updateUserFail(err.response?.data?.message || err.message));
   }
 };
 
-// update user password
-export const updatePassowrd = (userData) => async (dispatch) => {
+// ------------------- UPDATE PASSWORD -------------------
+export const updatePassword = (userData) => async (dispatch) => {
   try {
     dispatch(updatePasswordRequest());
-    const { data } = await API.put(`/password/update`, userData);
+    const { data } = await axios.put(`${API}/password/update`, userData);
     dispatch(updatePasswordSuccess(data.success));
   } catch (err) {
-    console.log("error in update password action", err);
     dispatch(updatePasswordFail(err.response?.data?.message || err.message));
   }
 };
 
-// delete user - Admin
+// ------------------- DELETE USER (ADMIN) -------------------
 export const deleteUser = (id) => async (dispatch) => {
   try {
     dispatch(deleteUserRequest());
-    const { data } = await API.delete(`/admin/user/${id}`);
+    const { data } = await axios.delete(`${API}/admin/user/${id}`);
     dispatch(deleteUserSuccess(data));
   } catch (err) {
     dispatch(deleteUserFail(err.response?.data?.message || err.message));
   }
 };
 
-// get all users - Admin
+// ------------------- GET ALL USERS (ADMIN) -------------------
 export const getAllUsers = () => async (dispatch) => {
   try {
     dispatch(allUsersRequest());
-    const { data } = await API.get(`/admin/users`);
+    const { data } = await axios.get(`${API}/admin/users`);
     dispatch(allUsersSuccess(data.users));
-  } catch (error) {
-    dispatch(allUsersFail(error.response?.data?.message || error.message));
+  } catch (err) {
+    dispatch(allUsersFail(err.response?.data?.message || err.message));
   }
 };
 
-// get user details - Admin
+// ------------------- GET USER DETAILS (ADMIN) -------------------
 export const getUserDetails = (id) => async (dispatch) => {
   try {
     dispatch(userDetailsRequest());
-    const { data } = await API.get(`/admin/user/${id}`);
+    const { data } = await axios.get(`${API}/admin/user/${id}`);
     dispatch(userDetailsSuccess(data.user));
   } catch (err) {
     dispatch(userDetailsFail(err.response?.data?.message || err.message));
   }
 };
 
-// update user role - Admin
+// ------------------- UPDATE USER ROLE (ADMIN) -------------------
 export const updateUserRole = (id, userData) => async (dispatch) => {
   try {
     dispatch(updateUserRequest());
     const config = { headers: { "Content-Type": "application/json" } };
-    const { data } = await API.put(`/admin/user/${id}`, userData, config);
+    const { data } = await axios.put(`${API}/admin/user/${id}`, userData, config);
     dispatch(updateUserSuccess(data.success));
   } catch (err) {
     dispatch(updateUserFail(err.response?.data?.message || err.message));
   }
 };
 
-// clearing errors
+// ------------------- CLEAR ERRORS -------------------
 export const clearError = () => async (dispatch) => {
   dispatch(clearErrors());
 };
