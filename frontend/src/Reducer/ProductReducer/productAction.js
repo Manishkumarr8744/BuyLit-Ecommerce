@@ -34,7 +34,7 @@ import {
 import axios from "axios";
 
 // ✅ Use env var if available, otherwise localhost
-const API = process.env.REACT_APP_API_URL;
+const API = process.env.REACT_APP_API_URL || "https://buylit-backend.onrender.com/api/v1";
 
 // ------------------- GET ALL PRODUCTS -------------------
 export const getProduct =
