@@ -83,7 +83,7 @@ const ProductList = () => {
 
   // Filter products
   const filteredProducts =
-    products?.filter(
+    products?.products.filter(
       (product) =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         product._id.toLowerCase().includes(searchTerm.toLowerCase())
