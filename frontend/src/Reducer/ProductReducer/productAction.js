@@ -95,7 +95,7 @@ export const getAdminProduct = () => async (dispatch) => {
   try {
     dispatch(adminProductRequest());
 
-    const { data } = await axios.get(`${API}/admin/products`);
+    const { data } = await axios.get(`${API}/admin/products`, { withCredentials: true });
 
     dispatch(adminProductSuccess(data.products));
   } catch (err) {
