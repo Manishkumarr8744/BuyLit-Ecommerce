@@ -19,7 +19,7 @@ import {
 } from "./allReviewReducer";
 
 // ✅ Base API URL (Render backend in .env, fallback to localhost)
-const API = process.env.REACT_APP_API_URL";
+const API = process.env.REACT_APP_API_URL;
 
 // ------------------- CREATE NEW REVIEW -------------------
 export const newReview = (reviewData) => async (dispatch) => {
