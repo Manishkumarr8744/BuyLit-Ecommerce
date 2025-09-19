@@ -19,7 +19,7 @@ const ProductReducer = createSlice({
     },
     adminProductRequest(state) {
       state.loading = true;
-      
+      state.products=[];
       
     },
     allProductSuccess(state, action) {
@@ -31,7 +31,7 @@ const ProductReducer = createSlice({
     },
     adminProductSuccess(state, action) {
       state.loading = false;
-      state.products = action.payload.products;
+      state.products = action.payload;
     },
     allProductFail(state, action) {
       state.loading = false;
