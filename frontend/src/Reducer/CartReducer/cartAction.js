@@ -2,7 +2,7 @@ import axios from "axios";
 import { addToCart, removeCartItem, saveShippingInfo } from "./cartReducer";
 
 // ✅ Base API URL (Render backend in .env, fallback to localhost)
-const API = process.env.REACT_APP_API_URL;
+const API = process.env.REACT_APP_API_URL || "https://buylit-backend.onrender.com/api/v1";
 
 // ------------------- ADD TO CART -------------------
 export const addtocart = (id, quantity) => async (dispatch, getState) => {
