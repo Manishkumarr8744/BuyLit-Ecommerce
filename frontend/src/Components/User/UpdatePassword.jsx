@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import toast, {  } from "react-hot-toast";
 import {
   clearError,
-  updatePassowrd,
+  updatePassword,
 } from "../../Reducer/UserReducer/userAction";
 import { updatePasswordReset } from "../../Reducer/UserReducer/userProfleReducer";
 import MetaData from "../Layouts/MetaData";
