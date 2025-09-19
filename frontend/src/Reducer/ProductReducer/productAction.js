@@ -76,10 +76,10 @@ export const updateProduct = (id, productData) => async (dispatch) => {
   try {
     dispatch(updateProductRequest());
 
-    const config = { headers: { "Content-Type": "application/json" } };
+    const config = { headers: { "Content-Type": "application/json" },{ withCredentials: true }};
 
     const { data } = await axios.put(
-      `${API}/api/v1/admin/products/${id}`,
+      `${API}/admin/products/${id}`,
       productData,
       config
     );
