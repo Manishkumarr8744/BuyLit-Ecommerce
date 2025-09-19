@@ -17,7 +17,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { deleteProductReset } from "../../Reducer/ProductReducer/ProductReducers";
-import toast, {  } from "react-hot-toast";
+import toast from "react-hot-toast";
 import MetaData from "../Layouts/MetaData";
 
 const ProductList = () => {
@@ -81,13 +81,14 @@ const ProductList = () => {
     }
   };
 
-  // Filter products
-  const filteredProducts =
-    products?.products.filter(
-      (product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product._id.toLowerCase().includes(searchTerm.toLowerCase())
-    ) || [];
+  // Filter products - Fixed to handle undefined products
+  const filteredProducts = Array.isArray(products) 
+    ? products.filter(
+        (product) =>
+          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product._id.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : [];
 
   // Pagination
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
@@ -97,8 +98,6 @@ const ProductList = () => {
 
   return (
     <Fragment>
-      {/* Hot Toast container */}
-
       <div className="mt-[3rem] flex min-h-screen bg-gray-50">
         <MetaData title={`Product List`} />
         <SideBar />
@@ -150,7 +149,7 @@ const ProductList = () => {
                   <div>
                     <p className="text-sm text-gray-600">Total Products</p>
                     <p className="text-xl font-bold text-gray-800">
-                      {products?.length || 0}
+                      {filteredProducts.length}
                     </p>
                   </div>
                 </div>
@@ -230,6 +229,57 @@ const ProductList = () => {
                   </tbody>
                 </table>
               </div>
+            </div>
+
+            {/* Mobile view - Card layout */}
+            <div className="md:hidden space-y-4">
+              {currentProducts.map((product) => (
+                <div
+                  key={product._id}
+                  className="bg-white rounded-lg shadow-sm border border-gray-200 p-4"
+                >
+                  <div className="flex justify-between items-start mb-2">
+                    <div>
+                      <h3 className="font-medium text-gray-900">
+                        {product.name}
+                      </h3>
+                      <p className="text-sm text-gray-500 mt-1">
+                        ID: {product._id}
+                      </p>
+                    </div>
+                    <div className="flex space-x-2">
+                      <Link
+                        to={`/admin/product/${product._id}`}
+                        className="text-indigo-600 hover:text-indigo-900 p-1"
+                      >
+                        <Edit size={18} />
+                      </Link>
+                      <button
+                        onClick={() => openDeleteModal(product)}
+                        className="text-red-600 hover:text-red-900 p-1"
+                      >
+                        <Trash2 size={18} />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center space-x-4">
+                      <span
+                        className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                          product.stock > 0
+                            ? "bg-green-100 text-green-800"
+                            : "bg-red-100 text-red-800"
+                        }`}
+                      >
+                        Stock: {product.stock}
+                      </span>
+                      <span className="text-sm font-medium text-gray-900">
+                        ₹{product.price.toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
 
             {/* No Products */}
