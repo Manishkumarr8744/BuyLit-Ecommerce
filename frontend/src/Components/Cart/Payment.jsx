@@ -44,6 +44,7 @@ const Payment = () => {
 
   const handlePay = async (e) => {
     e.preventDefault();
+    const API = process.env.REACT_APP_API_URL || "https://buylit-backend.onrender.com/api/v1";
 
     const cardNumber = elements?.getElement(CardNumberElement);
     const expiry = elements?.getElement(CardExpiryElement);
@@ -59,8 +60,7 @@ const Payment = () => {
 
     try {
       const config = { headers: { "Content-Type": "application/json" }, withCredentials: true };
-      const { data } = await axios.post(
-        "/api/v1/payment/process",
+      const { data } = await axios.post(`${API}/payment/process`,
         paymentData,
         config
       );
