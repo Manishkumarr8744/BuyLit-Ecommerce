@@ -25,6 +25,8 @@ import { newProductRequest,
   newProductFail,} from "./newProductReducer"
 import axios from "axios";
 
+const API = process.env.REACT_APP_API_URL || "http://localhost:4000";
+
 
 //get all products
 export const getProduct =
@@ -33,7 +35,7 @@ export const getProduct =
     try {
       dispatch(allProductRequest());
 
-      let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+      let link = `${API}/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
 
     //   if (category) {
     //     link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
