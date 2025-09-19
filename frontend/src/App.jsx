@@ -39,7 +39,7 @@ import OrderDetails from './Components/Order/OrderDetails';
 
 const App = () => {
   const dispatch = useDispatch();
-  const API = process.env.REACT_APP_API_URL;
+  const API = process.env.REACT_APP_API_URL || "https://buylit-backend.onrender.com/api/v1";
 
   const [stripeApiKey, setStripeApiKey] = useState("");
 
