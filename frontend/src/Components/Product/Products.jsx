@@ -6,7 +6,7 @@ import { getProduct } from "../../Reducer/ProductReducer/productAction";
 import Loader from "../Layouts/Loader/Loader";
 import MetaData from "../Layouts/MetaData";
 
-const Product = () => {
+const Products = () => {
   const dispatch = useDispatch();
   const { products, loading } = useSelector((state) => state.products);
 
@@ -198,4 +198,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default Products;
