@@ -39,10 +39,12 @@ import OrderDetails from './Components/Order/OrderDetails';
 
 const App = () => {
   const dispatch = useDispatch();
+  const API = process.env.REACT_APP_API_URL || "http://localhost:4000";
+
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   async function getStripeApiKey() {
-    const { data } = await axios.get("/api/v1/stripeapikey");
+    const { data } = await axios.get(`${API}/api/v1/stripeapikey`);
     setStripeApiKey(data.stripeApiKey);
   }
 
