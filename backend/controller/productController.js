@@ -92,6 +92,7 @@ exports.getAdminProducts=catchAyncError(async(req,res)=>{
 
 
     res.status(200).json({
+      success:true,
         products        
     }
     )
