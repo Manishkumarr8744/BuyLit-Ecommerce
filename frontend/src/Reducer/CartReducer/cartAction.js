@@ -2,11 +2,11 @@ import axios from "axios";
 import { addToCart, removeCartItem, saveShippingInfo } from "./cartReducer";
 
 // ✅ Base API URL (Render backend in .env, fallback to localhost)
-const API = process.env.REACT_APP_API_URL || "http://localhost:4000";
+const API = process.env.REACT_APP_API_URL;
 
 // ------------------- ADD TO CART -------------------
 export const addtocart = (id, quantity) => async (dispatch, getState) => {
-  const { data } = await axios.get(`${API}/api/v1/products/${id}`);
+  const { data } = await axios.get(`${API}/products/${id}`);
 
   dispatch(
     addToCart({
