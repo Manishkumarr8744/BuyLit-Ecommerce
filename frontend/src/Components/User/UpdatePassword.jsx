@@ -29,7 +29,7 @@ const UpdatePassword = () => {
     }
 
     const passwordData = { oldPassword, confirmPassword, newPassword };
-    dispatch(updatePassowrd(passwordData));
+    dispatch(updatePassword(passwordData));
   };
 
   useEffect(() => {
