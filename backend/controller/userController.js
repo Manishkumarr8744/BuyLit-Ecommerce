@@ -61,8 +61,10 @@ exports.logout=catchAyncError(async(req,res,next)=>{
 
 
     res.cookie("token",null,{
-        expires:new Date(Date.now()),
-        httpOnly:true
+        expires: new Date(Date.now()), // expire immediately
+      httpOnly: true,
+      sameSite: "None", // if using cross-site
+      secure: true,
     })
 
     res.status(200).json({
