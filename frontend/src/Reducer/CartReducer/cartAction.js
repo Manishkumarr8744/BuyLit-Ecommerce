@@ -6,7 +6,7 @@ const API = process.env.REACT_APP_API_URL || "https://buylit-backend.onrender.co
 
 // ------------------- ADD TO CART -------------------
 export const addtocart = (id, quantity) => async (dispatch, getState) => {
-  const { data } = await axios.get(`${API}/products/${id}`);
+  const { data } = await axios.get(`${API}/products/${id}`,{withCredentials: true});
 
   dispatch(
     addToCart({
