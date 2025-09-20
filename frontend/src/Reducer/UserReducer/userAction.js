@@ -85,7 +85,7 @@ export const loadUser = () => async (dispatch) => {
 export const registerUser = (userData) => async (dispatch) => {
   try {
     dispatch(registerUserRequest());
-    const config = { headers: { "Content-Type": "application/json" } };
+    const config = { headers: { "Content-Type": "application/json" }, withCredentials: true, };
     const { data } = await axios.post(`${API}/register`, userData, config);
     dispatch(registerUserSuccess(data.user));
   } catch (err) {
