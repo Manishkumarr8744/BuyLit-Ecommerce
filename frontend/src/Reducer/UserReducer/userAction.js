@@ -63,7 +63,7 @@ export const login = (email, password) => async (dispatch) => {
 // ------------------- LOGOUT USER -------------------
 export const logout = () => async (dispatch) => {
   try {
-    await axios.get(`${API}/logout`);
+    await axios.get(`${API}/logout`,{withCredentials: true});
     dispatch(logoutSuccess());
   } catch (err) {
     dispatch(logoutFail(err.response?.data?.message || err.message));
