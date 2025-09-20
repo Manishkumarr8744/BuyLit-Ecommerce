@@ -39,6 +39,7 @@ export const createOrder = (order) => async (dispatch) => {
 
     const config = {
       headers: { "Content-Type": "application/json" },
+       withCredentials: true
     };
 
     const { data } = await axios.post(`${API}/order/new`, order, config);
@@ -55,7 +56,7 @@ export const getuserOrder = () => async (dispatch) => {
   try {
     dispatch(myorderRequest());
 
-    const { data } = await axios.get(`${API}/orders/me`);
+    const { data } = await axios.get(`${API}/orders/me`,{ withCredentials: true});
 
     dispatch(myorderSuccess(data.order));
   } catch (err) {
@@ -71,7 +72,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
   try {
     dispatch(orderDetailsRequest());
 
-    const { data } = await axios.get(`${API}/order/${id}`);
+      const { data } = await axios.get(`${API}/order/${id}`,{withCredentials: tru});
 
     console.log(data);
 
@@ -99,7 +100,7 @@ export const deleteOrder = (id) => async (dispatch) => {
   try {
     dispatch(deleteOrderRequest());
 
-    const { data } = await axios.delete(`${API}/admin/order/${id}`);
+    const { data } = await axios.delete(`${API}/admin/order/${id}`,{withCredentials: true});
 
     dispatch(deleteOrderSuccess(data.success));
   } catch (err) {
@@ -114,7 +115,7 @@ export const updateOrder = (id, status) => async (dispatch) => {
   try {
     dispatch(updateOrderRequest());
 
-    const config = { headers: { "Content-Type": "application/json" } };
+    const config = { headers: { "Content-Type": "application/json" },withCredentials: true };
 
     const { data } = await axios.put(
       `${API}/admin/order/${id}`,
