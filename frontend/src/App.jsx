@@ -56,7 +56,7 @@ const App = () => {
         });
         setStripeApiKey(data.stripeApiKey);
       } catch (error) {
-        console.error("❌ Stripe key fetch failed:", error.message);
+        console.log("❌ Stripe key fetch failed:", error.message);
       }
     };
 
