@@ -62,7 +62,7 @@ export const getAllReviews = (id) => async (dispatch) => {
   try {
     dispatch(allReviewRequest());
 
-    const { data } = await axios.get(`${API}/reviews?id=${id}`,{withCredentials: true);
+    const { data } = await axios.get(`${API}/reviews?id=${id}`,{withCredentials: true});
 
     dispatch(allReviewSuccess(data.reviews));
   } catch (err) {
