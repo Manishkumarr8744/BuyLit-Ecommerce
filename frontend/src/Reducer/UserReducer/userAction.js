@@ -110,7 +110,8 @@ export const updateUser = (updatedData) => async (dispatch) => {
 export const updatePassword = (userData) => async (dispatch) => {
   try {
     dispatch(updatePasswordRequest());
-    const { data } = await axios.put(`${API}/password/update`,{withCredentials: true}, userData);
+    const config = { headers: { "Content-Type": "application/json" }, withCredentials: true, };
+    const { data } = await axios.put(`${API}/password/update`, userData,config);
     dispatch(updatePasswordSuccess(data.success));
   } catch (err) {
     dispatch(updatePasswordFail(err.response?.data?.message || err.message));
