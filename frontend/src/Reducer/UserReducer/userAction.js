@@ -74,7 +74,7 @@ export const logout = () => async (dispatch) => {
 export const loadUser = () => async (dispatch) => {
   try {
     dispatch(loadUserRequest());
-    const { data } = await axios.get(`${API}/me`);
+    const { data } = await axios.get(`${API}/me`,{withCredentials: true});
     dispatch(loadUserSuccess(data.user));
   } catch (err) {
     dispatch(loadUserFail(err.response?.data?.message || err.message));
@@ -97,7 +97,7 @@ export const registerUser = (userData) => async (dispatch) => {
 export const updateUser = (updatedData) => async (dispatch) => {
   try {
     dispatch(updateUserRequest());
-    const { data } = await axios.put(`${API}/me/update`, updatedData);
+    const { data } = await axios.put(`${API}/me/update`,{withCredentials: true}, updatedData);
     dispatch(updateUserSuccess(data.success));
   } catch (err) {
     dispatch(updateUserFail(err.response?.data?.message || err.message));
@@ -108,7 +108,7 @@ export const updateUser = (updatedData) => async (dispatch) => {
 export const updatePassword = (userData) => async (dispatch) => {
   try {
     dispatch(updatePasswordRequest());
-    const { data } = await axios.put(`${API}/password/update`, userData);
+    const { data } = await axios.put(`${API}/password/update`,{withCredentials: true}, userData);
     dispatch(updatePasswordSuccess(data.success));
   } catch (err) {
     dispatch(updatePasswordFail(err.response?.data?.message || err.message));
@@ -119,7 +119,7 @@ export const updatePassword = (userData) => async (dispatch) => {
 export const deleteUser = (id) => async (dispatch) => {
   try {
     dispatch(deleteUserRequest());
-    const { data } = await axios.delete(`${API}/admin/user/${id}`);
+    const { data } = await axios.delete(`${API}/admin/user/${id}`,{withCredentials: true});
     dispatch(deleteUserSuccess(data));
   } catch (err) {
     dispatch(deleteUserFail(err.response?.data?.message || err.message));
@@ -130,7 +130,7 @@ export const deleteUser = (id) => async (dispatch) => {
 export const getAllUsers = () => async (dispatch) => {
   try {
     dispatch(allUsersRequest());
-    const { data } = await axios.get(`${API}/admin/users`);
+    const { data } = await axios.get(`${API}/admin/users`,{withCredentials: true});
     dispatch(allUsersSuccess(data.users));
   } catch (err) {
     dispatch(allUsersFail(err.response?.data?.message || err.message));
@@ -141,7 +141,7 @@ export const getAllUsers = () => async (dispatch) => {
 export const getUserDetails = (id) => async (dispatch) => {
   try {
     dispatch(userDetailsRequest());
-    const { data } = await axios.get(`${API}/admin/user/${id}`);
+    const { data } = await axios.get(`${API}/admin/user/${id}`,{withCredentials: true});
     dispatch(userDetailsSuccess(data.user));
   } catch (err) {
     dispatch(userDetailsFail(err.response?.data?.message || err.message));
@@ -152,7 +152,7 @@ export const getUserDetails = (id) => async (dispatch) => {
 export const updateUserRole = (id, userData) => async (dispatch) => {
   try {
     dispatch(updateUserRequest());
-    const config = { headers: { "Content-Type": "application/json" } };
+    const config = { headers: { "Content-Type": "application/json" },withCredentials: true };
     const { data } = await axios.put(`${API}/admin/user/${id}`, userData, config);
     dispatch(updateUserSuccess(data.success));
   } catch (err) {
